@@ -1,2 +1,5 @@
-# adventofcode-2021
-Solution to Advent of code 2021 puzzles 
+# Advent of code
+
+Solutions to the [Advent of code](https://adventofcode.com/) puzzles.
+
+Powered by [Kotlin](https://kotlinlang.org/).

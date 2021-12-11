@@ -1,32 +1,54 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.0" apply  false
 }
 
-dependencies {
-    implementation(kotlin("stdlib"))
-}
 
-repositories {
-    mavenCentral()
-}
 
-val srcDir  = projectDir.toPath().resolve("src/main/kotlin/mri/advent2021")
-val resourcesDir  = projectDir.toPath().resolve("src/main/resources")
-val dayTemplate = projectDir.toPath().resolve("src/main/resources/dayxx.kt").toFile().readText()
 
-(0..25).map { if (it < 10) "0$it" else "$it" }.forEach { day ->
-    tasks.create("gen-day-$day") {
-        group = "advent2021"
-        doLast {
-            println("generate day $day")
-            // gen input files
-            if(!resourcesDir.resolve("day$day.in").toFile().exists()) {
-                resourcesDir.resolve("day$day.in").toFile().createNewFile()
-                resourcesDir.resolve("day${day}_sample.in").toFile().createNewFile()
-            }
-            // gen class file
-            if(!srcDir.resolve("day$day.kt").toFile().exists()) {
-                srcDir.resolve("day$day.kt").toFile().writeText(dayTemplate.replace("xx", day))
+subprojects {
+    apply(plugin = "java")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    repositories {
+        mavenCentral()
+    }
+    val implementation by configurations
+    val testImplementation by configurations
+    dependencies {
+        implementation(kotlin("stdlib"))
+        testImplementation(kotlin("test"))
+    }
+
+    tasks.withType(Test::class) {
+        useJUnitPlatform()
+    }
+
+    // Create tasks to generate resources per day
+    val srcDir = this.projectDir.toPath().resolve("src/main/kotlin/mri/advent")
+    val testSrcDir = this.projectDir.toPath().resolve("src/test/kotlin/mri/advent")
+    val resourcesDir = this.projectDir.toPath().resolve("src/main/resources")
+    val testResourcesDir = this.projectDir.toPath().resolve("src/test/resources")
+    val dayTemplate = this.rootProject.projectDir.toPath().resolve("templates/dayDD.kt").toFile().readText()
+    val testDayTemplate = this.rootProject.projectDir.toPath().resolve("templates/dayDD-test.kt").toFile().readText()
+    (1..25).map { if (it < 10) "0$it" else "$it" }.forEach { day ->
+        this.tasks.create("gen-day-$day") {
+            group = "advent"
+            doLast {
+                println("generate day $day")
+                // gen input files
+                if (!resourcesDir.resolve("day${day}.in").toFile().exists()) {
+                    resourcesDir.resolve("day${day}.in").toFile().createNewFile()
+                }
+                if (!testResourcesDir.resolve("day${day}_sample.in").toFile().exists()) {
+                    testResourcesDir.resolve("day${day}_sample.in").toFile().createNewFile()
+                }
+                // gen class file
+                if (!srcDir.resolve("day${day}.kt").toFile().exists()) {
+                    srcDir.resolve("day${day}.kt").toFile().writeText(dayTemplate.replace("DD", day))
+                }
+                // gen test class file
+                if (!testSrcDir.resolve("Day${day}Test.kt").toFile().exists()) {
+                    testSrcDir.resolve( "Day${day}Test.kt").toFile().writeText(testDayTemplate.replace("DD", day))
+                }
             }
         }
     }
