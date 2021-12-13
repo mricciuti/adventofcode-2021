@@ -1,8 +1,8 @@
-package mri.advent
+package mri.advent.y2021
 
 import java.util.*
 
-class Day04 {
+class Day04(val data: String = "/day04.in") {
 
     data class Cell(val number: Int, var marked: Boolean = false) {
         fun mark(value: Int) {
@@ -18,23 +18,25 @@ class Day04 {
         fun mark(number: Int) {
             allCells().forEach { it.mark(number) }
         }
+
         fun computeScore() = allCells().filter { !it.marked }.sumOf { it.number }
         fun completed(): Boolean {
             // ligne complete ?
-            if (cells.any { it.none { !it.marked } }) return true
+            if (cells.any { it.none { cell -> !cell.marked } }) return true
             // colonne complete ?
-            if (columns().any { it.none { !it.marked } }) return true
+            if (columns().any { it.none { cell -> !cell.marked } }) return true
             return false
         }
+
         private fun columns(): Array<Array<Cell>> {
             return Array(5) { colIdx -> Array(5) { rowId -> cells[rowId][colIdx] } }
         }
     }
 
-    val boardSize = 5
     private fun parseBoard(input: Scanner): Board {
-        return Board(Array(boardSize) { _ -> Array(boardSize) { _ -> Cell(input.nextInt()) } })
+        return Board(Array(5) { Array(5) { Cell(input.nextInt()) } })
     }
+
     private fun parseBoards(input: Scanner): List<Board> {
         val boards = mutableListOf<Board>()
         while (input.hasNextLine()) {
@@ -44,20 +46,20 @@ class Day04 {
         return boards
     }
 
-    fun d04Part1(): Any {
-        scanner("/src/main/resources/day04.in").use { input ->
+    fun part1(): Any {
+        scanner(data).use { input ->
             val numbers = input.nextLine().split(",").map { it.toInt() }
             val boards = parseBoards(input)
             for (num in numbers) {
                 boards.forEach { it.mark(num) }
-                boards.firstOrNull { it.completed() }?.let { return ("${it.computeScore() * num}") }
+                boards.firstOrNull { it.completed() }?.let { return it.computeScore() * num }
             }
         }
         throw IllegalStateException("solution not found")
     }
 
-    fun d04Part2(): String {
-        scanner("/src/main/resources/day04.in").use { input ->
+    fun part2(): Any {
+        scanner(data).use { input ->
             val numbers = input.nextLine().split(",").map { it.toInt() }
             val boards = parseBoards(input)
             var lastScore = 0
@@ -71,12 +73,12 @@ class Day04 {
                     lastScore = winning.score
                 }
             }
-            return "$lastScore"
+            return lastScore
         }
     }
 }
 
 fun main() {
-    println(" part1:" + Day04().d04Part1())
-    println(" part2:" + Day04().d04Part2())
+    println(" part1:" + Day04().part1())
+    println(" part2:" + Day04().part2())
 }

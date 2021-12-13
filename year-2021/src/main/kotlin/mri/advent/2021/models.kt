@@ -1,4 +1,4 @@
-package mri.advent
+package mri.advent.y2021
 
 
 enum class Direction(val x: Int, val y: Int) {

@@ -1,14 +1,11 @@
-package mri.advent
+package mri.advent.y2021
 
 import kotlin.math.abs
 
 /**
  *  --- Day 7: The Treachery of Whales ---
  */
-class Day07 {
-
-    private val data = "/src/main/resources/day07.in"
-    private val sample = "/src/main/resources/day07_sample.in"
+class Day07(val data: String = "/day07.in") {
 
     /**
      * brute force

@@ -1,11 +1,8 @@
-package mri.advent
+package mri.advent.y2021
 
 
 
-class Day09 {
-
-    private val data = "/src/main/resources/day09.in"
-    private val sample = "/src/main/resources/day09_sample.in"
+class Day09(val data: String = "/day09.in") {
 
     // Data model
     data class Cell(val Point: Point, var height: Int = 0, var bassin: Int = -1)
@@ -45,7 +42,7 @@ class Day09 {
         return grid
     }
 
-    fun d09Part2(): Any {
+    fun part2(): Any {
         val grid = loadGrid()
         val lowpoints = grid.lowPoints()
 
@@ -71,7 +68,7 @@ class Day09 {
      * Find all of the low points on your heightmap.
      * What is the sum of the risk levels of all low points on your heightmap?
      */
-    fun d09Part1(): Any {
+    fun part1(): Any {
         val grid = loadGrid()
         val lowpoints = grid.lowPoints()
         return lowpoints.map { it.height + 1 }.sum()
@@ -79,6 +76,6 @@ class Day09 {
 }
 
 fun main() {
-    println(" part1:" + Day09().d09Part1())
-    println(" part2:" + Day09().d09Part2())
+    println(" part1:" + Day09().part1())
+    println(" part2:" + Day09().part2())
 }

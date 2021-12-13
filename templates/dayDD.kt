@@ -3,7 +3,7 @@ package mri.advent
 /**
  * --- Day DD:  ---
  */
-class DayDD(val data: String) {
+class DayDD(val data: String = "/dayDD.in") {
 
     fun part2(): Any {
         return ""
@@ -15,7 +15,6 @@ class DayDD(val data: String) {
 }
 
 fun main() {
-    val data = "/dayDD.in"
-    println(" part1:" + DayDD(data).part1())
-    println(" part2:" + DayDD(data).part2())
+    println(" part1:" + DayDD().part1())
+    println(" part2:" + DayDD().part2())
 }

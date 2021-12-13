@@ -1,9 +1,9 @@
-package mri.advent
+package mri.advent.y2021
 
 import kotlin.math.max
 import kotlin.math.min
 
-class Day05 {
+class Day05(val data: String = "/day05.in") {
 
     data class Line(val start: Point, val end: Point) {
         fun isHorizontal() = start.y == end.y
@@ -42,8 +42,8 @@ class Day05 {
     /**
      * Consider all of the lines. At how many points do at least two lines overlap?
      */
-    fun d05Part2(): Any {
-        val lines = resourceAsStrings("/src/main/resources/day05.in").map { parseLine(it) }
+    fun part2(): Any {
+        val lines = resourceAsStrings(data).map { parseLine(it) }
         val grid = Grid(1000)
         lines.forEach { grid.drawLine(it) }
         return grid.allCells().count { it >= 2 }
@@ -52,8 +52,8 @@ class Day05 {
     /**
      * Consider only horizontal and vertical lines. At how many points do at least two lines overlap?
      */
-    fun d05Part1(): Any {
-        val lines = resourceAsStrings("/src/main/resources/day05.in").map { parseLine(it) }.filter { it.isVertical() || it.isHorizontal() }
+    fun part1(): Any {
+        val lines = resourceAsStrings(data).map { parseLine(it) }.filter { it.isVertical() || it.isHorizontal() }
         val grid = Grid(1000)
         lines.forEach { grid.drawLine(it) }
         return grid.allCells().count { it >= 2 }
@@ -61,6 +61,6 @@ class Day05 {
 }
 
 fun main() {
-    println(" part1:" + Day05().d05Part1())
-    println(" part2:" + Day05().d05Part2())
+    println(" part1:" + Day05().part1())
+    println(" part2:" + Day05().part2())
 }

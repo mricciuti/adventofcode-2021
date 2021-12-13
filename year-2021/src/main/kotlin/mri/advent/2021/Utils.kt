@@ -1,9 +1,11 @@
-package mri.advent
+package mri.advent.y2021
 
 import java.net.URL
 import java.util.*
 
 class Utils
+
+fun resourceAsInts(resource: String) = resourceAsStrings(resource).map { it.toInt() }
 
 fun resourceAsStrings(resource: String): List<String> {
     Utils::class.java.getResource(resource)

@@ -1,20 +1,20 @@
-package mri.advent
+package mri.advent.y2021
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class Day11Test {
 
-    val data = "/day11_sample.in"
+    val sample = "/day11_sample.in"
 
     @Test
     fun `test part1`() {
-        assertEquals(1656, Day11(data).part1())
+        assertEquals(1656, Day11(sample).part1())
     }
 
     @Test
     fun `test part2`() {
-        assertEquals(195, Day11(data).part2())
+        assertEquals(195, Day11(sample).part2())
     }
 }
 

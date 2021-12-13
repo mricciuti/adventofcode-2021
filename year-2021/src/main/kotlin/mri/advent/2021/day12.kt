@@ -1,4 +1,4 @@
-package mri.advent
+package mri.advent.y2021
 
 /**
  *   Day 12: Passage Pathing ---

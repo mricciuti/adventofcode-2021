@@ -1,9 +1,6 @@
-package mri.advent
+package mri.advent.y2021
 
-class Day08 {
-
-    private val data = "/src/main/resources/day08.in"
-    private val sample = "/src/main/resources/day08_sample.in"
+class Day08(val data: String = "day08.in") {
 
     // 1 ligne dans les input:    10 signal patterns | 4 digit output values
     data class Display(val patterns: Collection<CharArray>, val digits: Collection<CharArray>) {
@@ -24,14 +21,13 @@ class Day08 {
 
     // test if current charArrayincludes all other chararray chars - ex: 0 includes 1 & 7 ,  but not  2, 3, 4, 5, 6, 8 ni 9
     fun CharArray.includes(other: CharArray) = other.none { !this.contains(it) }
-    // get list of chars in current array not present in other array - eg.  diff(7, 1) returns 'a'
-    fun CharArray.diff(other: CharArray) = this.filter { !other.contains(it) }.toCharArray()
+
     // get common chars between current array and given array -  eg.  common(7, 1) returns [ 'c', 'f' ]
     fun CharArray.common(other: CharArray) = this.filter { other.contains(it) }.toCharArray()
     fun CharArray.equals(other: Any?) = other is CharArray && String(this.sortedArray()).equals(String(other.sortedArray()))
 
     // calcule le résultat pour  1 Display
-    fun processDisplay(display: Display): Long {
+    private fun processDisplay(display: Display): Long {
         val p1 = display.getBySegments(2)[0]
         val p4 = display.getBySegments(4)[0]
         val l5 = display.getBySegments(5)  // patterns de longueur 5 (2, 3, 5)
@@ -67,23 +63,22 @@ class Day08 {
         return output.joinToString("") { it }.toLong()
     }
 
-    fun d08Part2(): Any {
+    fun part2(): Any {
         return resourceAsStrings(data)
             .map { Display.parse(it) }
             .map { processDisplay(it) }
             .sum()
     }
 
-    fun d08Part1(): Any {
+    fun part1(): Any {
         return resourceAsStrings(data)
             .map { Display.parse(it) }
-            .map { it.digits.count { it.size == 2 || it.size == 3 || it.size == 4 || it.size == 7 } }
-            .sum()
+            .sumOf { it.digits.count { listOf(2, 3, 4, 7).contains(it.size) } }
     }
 
 }
 
 fun main() {
-    println(" part1:" + Day08().d08Part1())
-    println(" part2:" + Day08().d08Part2())
+    println(" part1:" + Day08().part1())
+    println(" part2:" + Day08().part2())
 }
