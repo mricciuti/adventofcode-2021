@@ -2,9 +2,6 @@ plugins {
     kotlin("jvm") version "1.6.0" apply  false
 }
 
-
-
-
 subprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")

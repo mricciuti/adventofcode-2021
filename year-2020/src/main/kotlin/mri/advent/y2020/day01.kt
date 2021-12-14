@@ -1,4 +1,4 @@
-package mri.advent
+package mri.advent.y2020
 
 /**
  * --- Day 1: Report Repair ---

@@ -1,4 +1,4 @@
-package mri.advent
+package mri.advent.y2020
 
 import java.net.URL
 import java.util.*

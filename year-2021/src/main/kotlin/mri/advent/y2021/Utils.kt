@@ -14,6 +14,7 @@ fun resourceAsStrings(resource: String): List<String> {
 }
 
 fun resourceAsStrings(url: URL): List<String> {
+
     with (Scanner(url.readText())) {
         val lines = mutableListOf<String>()
         while(this.hasNextLine()) lines.add(this.nextLine())
