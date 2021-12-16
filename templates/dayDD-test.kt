@@ -1,4 +1,4 @@
-package mri.advent
+package mri.advent.y2021
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

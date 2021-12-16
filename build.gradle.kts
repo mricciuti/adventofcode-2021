@@ -20,8 +20,8 @@ subprojects {
     }
 
     // Create tasks to generate resources per day
-    val srcDir = this.projectDir.toPath().resolve("src/main/kotlin/mri/advent")
-    val testSrcDir = this.projectDir.toPath().resolve("src/test/kotlin/mri/advent")
+    val srcDir = this.projectDir.toPath().resolve("src/main/kotlin/mri/advent/y2021")
+    val testSrcDir = this.projectDir.toPath().resolve("src/test/kotlin/mri/advent/y2021")
     val resourcesDir = this.projectDir.toPath().resolve("src/main/resources")
     val testResourcesDir = this.projectDir.toPath().resolve("src/test/resources")
     val dayTemplate = this.rootProject.projectDir.toPath().resolve("templates/dayDD.kt").toFile().readText()
