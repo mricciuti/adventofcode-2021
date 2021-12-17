@@ -105,8 +105,3 @@ fun main() {
     println(" part2:" + Day16().part2())
 }
 
-val DEBUG = false
-fun debug(str: String, padding: Int = 0) {
-    if (DEBUG) println("${"".padStart(padding, ' ')}$str")
-}
-
