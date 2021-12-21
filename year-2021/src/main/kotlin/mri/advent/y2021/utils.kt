@@ -19,6 +19,7 @@ fun info(str: String, padding: Int = 0) {
 fun log(str: String, padding: Int = 0) {
     println("${"".padStart(padding, ' ')}$str")
 }
+fun setLogLevel(level: LogLevel) { LOG_LEVEL = level }
 
 class Utils
 
