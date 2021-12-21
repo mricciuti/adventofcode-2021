@@ -1,4 +1,4 @@
-package mri.advent.y2021
+package mri.advent.yYYYY
 
 /**
  * --- Day DD:  ---

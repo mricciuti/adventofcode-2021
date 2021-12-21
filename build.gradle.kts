@@ -20,8 +20,9 @@ subprojects {
     }
 
     // Create tasks to generate resources per day
-    val srcDir = this.projectDir.toPath().resolve("src/main/kotlin/mri/advent/y2021")
-    val testSrcDir = this.projectDir.toPath().resolve("src/test/kotlin/mri/advent/y2021")
+    val year = this.project.name.replace("year-", "")
+    val srcDir = this.projectDir.toPath().resolve("src/main/kotlin/mri/advent/y$year")
+    val testSrcDir = this.projectDir.toPath().resolve("src/test/kotlin/mri/advent/y$year")
     val resourcesDir = this.projectDir.toPath().resolve("src/main/resources")
     val testResourcesDir = this.projectDir.toPath().resolve("src/test/resources")
     val dayTemplate = this.rootProject.projectDir.toPath().resolve("templates/dayDD.kt").toFile().readText()
@@ -40,11 +41,13 @@ subprojects {
                 }
                 // gen class file
                 if (!srcDir.resolve("day${day}.kt").toFile().exists()) {
-                    srcDir.resolve("day${day}.kt").toFile().writeText(dayTemplate.replace("DD", day))
+                    srcDir.resolve("day${day}.kt").toFile()
+                        .writeText(dayTemplate.replace("DD", day).replace("YYYY", year))
                 }
                 // gen test class file
                 if (!testSrcDir.resolve("Day${day}Test.kt").toFile().exists()) {
-                    testSrcDir.resolve( "Day${day}Test.kt").toFile().writeText(testDayTemplate.replace("DD", day))
+                    testSrcDir.resolve( "Day${day}Test.kt").toFile()
+                        .writeText(testDayTemplate.replace("DD", day).replace("YYYY", year))
                 }
             }
         }
