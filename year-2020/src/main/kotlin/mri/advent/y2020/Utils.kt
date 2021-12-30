@@ -5,6 +5,23 @@ import java.util.*
 
 class Utils
 
+//  Basic Logging =======================================
+enum class LogLevel { INFO, DEBUG, TRACE }
+var LOG_LEVEL = LogLevel.INFO
+
+fun debug(str: String, padding: Int = 0) {
+    if (LogLevel.DEBUG <= LOG_LEVEL) log(str, padding)
+}
+fun trace(str: String, padding: Int = 0) {
+    if (LogLevel.TRACE <= LOG_LEVEL) log(str, padding)
+}
+fun info(str: String, padding: Int = 0) {
+    log(str, padding)
+}
+fun log(str: String, padding: Int = 0) {
+    println("${"".padStart(padding, ' ')}$str")
+}
+fun setLogLevel(level: LogLevel) { LOG_LEVEL = level }
 fun resourceAsStrings(resource: String): List<String> {
     Utils::class.java.getResource(resource)
         ?.let { return resourceAsStrings(it) }
@@ -17,6 +34,11 @@ fun resourceAsStrings(url: URL): List<String> {
         while (this.hasNextLine()) lines.add(this.nextLine())
         return lines
     }
+}
+
+fun resourceAsText(resource: String): String {
+    return Utils::class.java.getResource(resource)?.let { return it.readText() }
+        ?: throw IllegalArgumentException("Resource not found: $resource")
 }
 
 fun scanner(resource: String): Scanner {

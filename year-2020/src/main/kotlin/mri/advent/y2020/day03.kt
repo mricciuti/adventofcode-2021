@@ -12,7 +12,7 @@ class Day03(val data: String = "/day03.in") {
         fun cellAt(coord: Coord) = cell[coord.y][coord.x % cell[0].size]
     }
 
-    fun nbTreesForSlop(map: Map, slop: Coord): Long {
+    private fun nbTreesForSlop(map: Map, slop: Coord): Long {
         var nbTrees = 0L
         var current = Coord(0, 0)
         while (current.y < map.cell.size) {
@@ -34,7 +34,7 @@ class Day03(val data: String = "/day03.in") {
             .map { nbTreesForSlop(map, it) }
             .reduce { acc, i -> acc * i }
     }
-    fun parseInput(): Map {
+    private fun parseInput(): Map {
         val lines = resourceAsStrings(data)
         return Map(Array(lines.size) { lines[it].toCharArray() })
     }

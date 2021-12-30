@@ -8,7 +8,7 @@ class Day02(val data: String) {
     data class Constraint(val char: Char, val first: Int, val second: Int)
     data class RecordLine(val constraint: Constraint, val password: String)
 
-    fun parseRecord(line: String): RecordLine {
+    private fun parseRecord(line: String): RecordLine {
         "(\\d+)-(\\d+) (.+): (\\w+)".toRegex().find(line)?.let {
             return RecordLine(Constraint(it.groupValues[3][0], it.groupValues[1].toInt(), it.groupValues[2].toInt() ), it.groupValues[4])
         } ?: throw IllegalArgumentException("invalid line: $line")
@@ -33,7 +33,7 @@ class Day02(val data: String) {
 
     /**
      * The password policy indicates the lowest and highest number of times a given letter must appear for the password to be valid.
-     * For example, 1-3 a means that the password must contain a at least 1 time and at most 3 times.
+     * For example, 1-3 a means that the password must contain  at least 1 time and at most 3 times.
      */
     fun part1(): Any {
         return resourceAsStrings(data).filter{ it.isNotEmpty()}
